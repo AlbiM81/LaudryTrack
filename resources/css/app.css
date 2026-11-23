@@ -9,3 +9,359 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+:root {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #173144;
+    background: #f3f6fa;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-optical-sizing: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.login-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.16fr) minmax(400px, 1fr);
+    min-height: 100vh;
+    min-height: 100svh;
+}
+
+.login-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    padding: clamp(32px, 4.4vw, 64px);
+    color: #f7fbff;
+    background: #102f42;
+}
+
+.brand {
+    width: fit-content;
+    color: inherit;
+    font-size: 1.45rem;
+    font-weight: 750;
+    letter-spacing: -0.035em;
+    text-decoration: none;
+}
+
+.intro-copy {
+    max-width: 650px;
+    margin-block: 72px;
+}
+
+.intro-copy h1 {
+    max-width: 620px;
+    margin: 0;
+    font-size: clamp(2.2rem, 3.2vw, 3.5rem);
+    font-weight: 720;
+    letter-spacing: -0.045em;
+    line-height: 1.12;
+}
+
+.intro-copy p {
+    max-width: 560px;
+    margin: 18px 0 0;
+    color: #bfced9;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.65;
+}
+
+.intro-footer {
+    margin: 0;
+    color: #bfced9;
+    font-size: 0.9rem;
+}
+
+.login-content {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    padding: 40px;
+    background: #f3f6fa;
+}
+
+.login-card {
+    width: min(100%, 428px);
+    padding: clamp(26px, 3vw, 36px);
+    border: 1px solid #e0e7ed;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 12px 35px rgb(23 49 68 / 5%);
+}
+
+.card-header h2,
+.authenticated-view h2 {
+    margin: 0;
+    color: #173144;
+    font-size: 1.8rem;
+    font-weight: 720;
+    letter-spacing: -0.04em;
+}
+
+.card-header p,
+.authenticated-description {
+    margin: 7px 0 24px;
+    color: #64798a;
+    line-height: 1.5;
+}
+
+.form-field {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.form-field label {
+    color: #354e60;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-field input {
+    width: 100%;
+    min-height: 49px;
+    padding: 0 13px;
+    border: 1px solid #cbd7df;
+    border-radius: 9px;
+    outline: none;
+    background: #fff;
+    color: #173144;
+    font-size: 1rem;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.form-field input::placeholder {
+    color: #8a9aa6;
+}
+
+.form-field input:focus {
+    border-color: #14818a;
+    box-shadow: 0 0 0 3px rgb(20 129 138 / 14%);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 49px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 650;
+    transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.button:focus-visible {
+    outline: 3px solid rgb(20 129 138 / 35%);
+    outline-offset: 2px;
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+.button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.button-primary {
+    margin-top: 18px;
+    background: #0f8188;
+    color: #fff;
+}
+
+.button-primary:hover:not(:disabled) {
+    background: #0b7077;
+}
+
+.button-secondary {
+    margin-top: 24px;
+    border: 1px solid #ccd8df;
+    background: #fff;
+    color: #173144;
+}
+
+.button-secondary:hover:not(:disabled) {
+    background: #f4f7f9;
+}
+
+.form-message {
+    margin: 14px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.form-message-error {
+    color: #b42318;
+}
+
+.card-footer {
+    margin-top: 19px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0f2;
+}
+
+.card-footer p {
+    margin: 0;
+    color: #64798a;
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.card-footer span {
+    color: #0f8188;
+    font-weight: 600;
+}
+
+.authenticated-view[hidden],
+[data-login-view][hidden] {
+    display: none;
+}
+
+.success-badge {
+    margin: 0 0 12px;
+    color: #168047;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.authenticated-view h2 {
+    overflow-wrap: anywhere;
+}
+
+.authenticated-description {
+    margin-bottom: 12px;
+}
+
+.role-list {
+    margin: 0;
+    color: #64798a;
+    font-size: 0.9rem;
+}
+
+.auth-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 12px;
+}
+
+.auth-links a {
+    color: #0f8188;
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.auth-links a:hover {
+    color: #0b7077;
+}
+
+.status-message {
+    margin: 16px 0 0;
+    padding: 11px 12px;
+    border: 1px solid #b8e3c9;
+    border-radius: 8px;
+    background: #f0fbf4;
+    color: #17663a;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.validation-error {
+    margin: 0;
+    color: #b42318;
+    font-size: 0.84rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 760px) {
+    .login-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .login-intro {
+        min-height: 260px;
+        padding: max(24px, env(safe-area-inset-top)) 24px 24px;
+    }
+
+    .brand {
+        font-size: 1.3rem;
+    }
+
+    .intro-copy {
+        margin: 40px 0 0;
+    }
+
+    .intro-copy h1 {
+        max-width: 520px;
+        font-size: clamp(1.9rem, 7vw, 2.65rem);
+    }
+
+    .intro-copy p {
+        margin-top: 12px;
+        font-size: 0.98rem;
+        line-height: 1.5;
+    }
+
+    .intro-footer {
+        display: none;
+    }
+
+    .login-content {
+        align-items: start;
+        padding: 26px 18px max(28px, env(safe-area-inset-bottom));
+    }
+
+    .login-card {
+        width: min(100%, 460px);
+        padding: 26px 22px;
+    }
+}
+
+@media (max-width: 380px) {
+    .login-intro {
+        min-height: 245px;
+        padding-inline: 20px;
+    }
+
+    .login-content {
+        padding-inline: 14px;
+    }
+
+    .login-card {
+        padding-inline: 19px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
