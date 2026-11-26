@@ -40,6 +40,7 @@ Endpoint tersedia di prefix `/api`:
 - `POST /api/auth/logout` mencabut token yang sedang digunakan.
 - Rute terlindungi memakai header `Authorization: Bearer <token>`.
 - Peran dikelola oleh Spatie Permission; Gate `access-owner` dan `access-staff` memeriksa hak akses tanpa middleware role.
+- Pengelolaan akun Kasir tersedia untuk Pemilik melalui `GET/POST /api/owner/cashiers`, `GET/PUT/PATCH/DELETE /api/owner/cashiers/{id}`. `DELETE` menonaktifkan akun dan mencabut seluruh token Kasir.
 
 Pendaftaran Pemilik tersedia di `/register`. Pemulihan kata sandi tersedia di `/forgot-password` dan dikirim melalui email. Untuk pengiriman email sungguhan, atur `MAIL_MAILER=smtp` beserta host, port, username, password, dan pengirim email di environment server. Mailer `log` hanya menulis tautan reset ke log aplikasi.
 

@@ -92,6 +92,69 @@ class AuthTest extends TestCase
             ->assertJsonValidationErrors('username');
     }
 
+    public function test_owner_can_manage_cashier_accounts_and_disable_access(): void
+    {
+        $owner = User::factory()->create(['username' => 'pemilik']);
+        $owner->syncRoles(['PEMILIK']);
+        $cashier = User::factory()->create([
+            'username' => 'kasir-awal',
+            'email' => 'kasir-awal@example.com',
+        ]);
+        $token = $cashier->createToken('test-token')->plainTextToken;
+
+        $this->actingAs($owner, 'sanctum')
+            ->postJson('/api/owner/cashiers', [
+                'name' => 'Kasir Baru',
+                'username' => 'kasir-baru',
+                'email' => 'kasir-baru@example.com',
+                'password' => 'strong-password',
+                'password_confirmation' => 'strong-password',
+            ])
+            ->assertCreated()
+            ->assertJsonPath('data.username', 'kasir-baru')
+            ->assertJsonPath('data.is_active', true);
+
+        $this->actingAs($owner, 'sanctum')
+            ->getJson('/api/owner/cashiers')
+            ->assertOk()
+            ->assertJsonCount(2, 'data');
+
+        $this->actingAs($owner, 'sanctum')
+            ->patchJson('/api/owner/cashiers/'.$cashier->id, [
+                'name' => 'Kasir Diperbarui',
+            ])
+            ->assertOk()
+            ->assertJsonPath('data.name', 'Kasir Diperbarui');
+
+        $this->actingAs($owner, 'sanctum')
+            ->deleteJson('/api/owner/cashiers/'.$cashier->id)
+            ->assertOk()
+            ->assertJsonPath('data.is_active', false);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $cashier->id,
+            'is_active' => false,
+        ]);
+        $this->assertDatabaseMissing('personal_access_tokens', [
+            'token' => hash('sha256', $token),
+        ]);
+
+        $this->postJson('/api/auth/login', [
+            'username' => 'kasir-awal',
+            'password' => 'password',
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors('username');
+    }
+
+    public function test_only_owners_can_manage_cashier_accounts(): void
+    {
+        $cashier = User::factory()->create(['username' => 'kasir']);
+
+        $this->actingAs($cashier, 'sanctum')
+            ->getJson('/api/owner/cashiers')
+            ->assertForbidden();
+    }
+
     public function test_database_seeder_creates_owner_and_cashier_accounts(): void
     {
         $this->seed();
