@@ -21,6 +21,28 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Autentikasi API
+
+Jalankan migrasi untuk menambahkan kolom username/peran dan tabel token:
+
+```bash
+php artisan migrate
+```
+
+Untuk membuat akun pengembangan Pemilik dan Kasir, jalankan `php artisan db:seed`.
+Seeder menggunakan username `pemilik` dan `kasir`, dengan password awal `password123`.
+Jangan gunakan kredensial bawaan ini di production.
+
+Endpoint tersedia di prefix `/api`:
+
+- `POST /api/auth/login` dengan `username` dan `password` menghasilkan token Bearer.
+- `GET /api/auth/me` mengembalikan user yang sedang login.
+- `POST /api/auth/logout` mencabut token yang sedang digunakan.
+- Rute terlindungi memakai header `Authorization: Bearer <token>`.
+- Peran dikelola oleh Spatie Permission; Gate `access-owner` dan `access-staff` memeriksa hak akses tanpa middleware role.
+
+Pendaftaran Pemilik tersedia di `/register`. Pemulihan kata sandi tersedia di `/forgot-password` dan dikirim melalui email. Untuk pengiriman email sungguhan, atur `MAIL_MAILER=smtp` beserta host, port, username, password, dan pengirim email di environment server. Mailer `log` hanya menulis tautan reset ke log aplikasi.
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
