@@ -16,7 +16,7 @@ class AuthService
     {
         $user = $this->userRepository->findByUsername($username);
 
-        if (! $user || ! Hash::check($password, $user->password)) {
+        if (! $user || ! $user->is_active || ! Hash::check($password, $user->password)) {
             throw ValidationException::withMessages([
                 'username' => ['Kredensial login tidak valid.'],
             ]);
